@@ -13,11 +13,11 @@ type NavbarProps = {
 
 const Navbar: React.FC<NavbarProps> = ({links}) => {
   return (
-    <nav className='font-lexend p-4 bg-dark border-b-2 border-gray-900'>
+    <nav className='font-lexend text-cream p-4 bg-[#1A1A1A] border-b-2 border-olive'>
       <ul className='flex gap-6 justify-evenly'>
         {links.map((link, index) => (
           <li key={index}>
-            <Link href={link.url} className='hover:text-gray-500 font-semibold transition'>
+            <Link href={link.url} className='hover:text-saffron font-semibold transition'>
             {link.text}
             </Link>
           </li>

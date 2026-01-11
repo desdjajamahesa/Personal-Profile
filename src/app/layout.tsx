@@ -19,10 +19,10 @@ const geistMono = Geist_Mono({
   });
 
 const navLinks = [
-  {text:'Home', url:'/'},
-  {text:'About Me', url:'/about'},
-  {text:'Portfolio', url:'/portfolio'},
-  {text:'Contact', url:'/contact'},
+  {text:'Home', url:'#home'},
+  {text:'Services', url:'#services'},
+  {text:'Projects', url:'#projects'},
+  {text:'Contact', url:'#contact'},
 ];
 
 export const metadata: Metadata = {
