@@ -9,6 +9,7 @@
   --cream: #FEFAE0;
   --olive: #606C38;
   --charcoal: #1A1A1A;
+  --bright-cream: #F8F5F0;
 }
 
 @theme inline {
@@ -24,6 +25,8 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-lexend: var(--font-lexend);
+  --font-julee: var(--font-julee);
+  --font-cinzel: var(--font-cinzel);
 
 }
 

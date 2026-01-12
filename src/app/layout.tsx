@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Lexend } from "next/font/google";
+import { Geist, Geist_Mono, Lexend, Julee, Cinzel_Decorative } from "next/font/google";
 import "./globals.css";
 import Navbar from '../components/Navbar';
 
@@ -13,16 +13,28 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-  const lexend = Lexend({
-    variable: "--font-lexend",
-    subsets: ["latin"],
-  });
+const lexend = Lexend({
+  variable: "--font-lexend",
+  subsets: ["latin"],
+});
+
+const julee = Julee({
+  variable: "--font-julee",
+  subsets: ["latin"],
+  weight: ["400"],
+});
+
+const cinzelDecorative = Cinzel_Decorative({
+  variable: "--font-cinzel",
+  subsets: ["latin"],
+  weight: ["400", "700", "900"],
+});
 
 const navLinks = [
-  {text:'Home', url:'#home'},
-  {text:'Services', url:'#services'},
-  {text:'Projects', url:'#projects'},
-  {text:'Contact', url:'#contact'},
+  {text:'OVERTURE', url:'#overture'},
+  {text:'REPERTOIRE', url:'#repertoire'},
+  {text:'CONCERT', url:'#concert'},
+  {text:'ENCORE', url:'#encore'},
 ];
 
 export const metadata: Metadata = {
@@ -38,7 +50,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${lexend.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${cinzelDecorative.variable} ${julee.variable} ${lexend.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Navbar links={navLinks}/>
         <main>{children}</main>
