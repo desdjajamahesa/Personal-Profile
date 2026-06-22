@@ -1,22 +1,57 @@
 "use client";
 
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import {motion, AnimatePresence} from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 type NavbarProps = {
-  links: {text: string; url: string}[];
+  links: { text: string; url: string }[];
 }
 
-const Navbar: React.FC<NavbarProps> = ({links}) => {
+const Navbar: React.FC<NavbarProps> = ({ links }) => {
   const [activeTab, setActiveTab] = useState(links[0].text);
-  
+
+  // --- LOGIC DETEKSI SCROLL DINAMIS (INTERSECTION OBSERVER) ---
+  useEffect(() => {
+    const observers: IntersectionObserver[] = [];
+
+    links.forEach((link) => {
+      // Mengambil ID dari URL (contoh: '#overture' menjadi 'overture')
+      const targetId = link.url.replace('#', '');
+      const element = document.getElementById(targetId);
+
+      if (element) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              // Jika section tersebut memenuhi 50% atau lebih dari viewport layar
+              if (entry.isIntersecting) {
+                setActiveTab(link.text);
+              }
+            });
+          },
+          {
+            // rootMargin disesuaikan agar perpindahan mawar terasa pas saat pergantian section
+            rootMargin: "-20% 0px -40% 0px",
+            threshold: 0.2, // Trigger aktif ketika 20% bagian dari section terlihat di margin tersebut
+          }
+        );
+
+        observer.observe(element);
+        observers.push(observer);
+      }
+    });
+
+    // Cleanup observer saat komponen tidak lagi dirender
+    return () => {
+      observers.forEach((obs) => obs.disconnect());
+    };
+  }, [links]);
+
   return (
     <nav className='fixed top-0 left-0 w-full z-50 transition-all duration-300
-      /* Padding: p-4 di HP, p-6 di Laptop, p-8 di Monitor */
       p-4 md:p-6 2xl:p-8 
-      /* Font Size: text-lg di Laptop (xl), text-2xl di Monitor (2xl) */
       font-julee text-base md:text-lg xl:text-xl 2xl:text-2xl 
       text-cream bg-transparent backdrop-blur-[2px]'>
 
@@ -41,7 +76,7 @@ const Navbar: React.FC<NavbarProps> = ({links}) => {
         />
       </div>
 
-      {/* List Menu dengan gap yang dinamis */}
+      {/* List Menu */}
       <ul className='flex gap-4 md:gap-8 xl:gap-12 2xl:gap-16 justify-evenly items-center relative z-10'>
         {links.map((link, index) => {
           const isActive = activeTab === link.text;
@@ -64,7 +99,6 @@ const Navbar: React.FC<NavbarProps> = ({links}) => {
                 {isActive && (
                   <motion.div
                     layoutId="activeRose"
-                    /* Posisi mawar disesuaikan agar tidak menabrak teks di resolusi besar */
                     className="absolute -bottom-8 2xl:-bottom-10 flex justify-center items-center" 
                     initial={false}
                     transition={{
@@ -89,7 +123,6 @@ const Navbar: React.FC<NavbarProps> = ({links}) => {
                       <Image
                         src="/images/roses.png"
                         alt="active-indicator"
-                        /* Ukuran mawar juga ikut scaling */
                         width={40}
                         height={40}
                         className="w-8 xl:w-10 2xl:w-14 drop-shadow-[0_0_7px_rgba(255,0,0,0.6)] object-contain transition-all duration-300"
