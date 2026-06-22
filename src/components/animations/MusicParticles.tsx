@@ -23,7 +23,7 @@ export default function MusicParticles() {
   if (particles.length === 0) return null;
 
   return (
-    <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
       {particles.map((p) => (
         <motion.div
           key={p.id}
